@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'core/config/app_config.dart';
 import 'core/flavor/flavor.dart';
 import 'app/app.dart';
+import 'core/di/injection_container.dart' as di;
 
 late AppConfig appConfig;
 
-void mainCommon() {
+Future<void> mainCommon() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  await di.init();
+
   switch (currentFlavor) {
     case Flavor.dev:
       appConfig = const AppConfig(
